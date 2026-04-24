@@ -1,14 +1,15 @@
 ---
-title: Land
-description: Forest cover as a share of land area, by country over time.
+title: Land & Forests
+description: Forest cover as a share of land area, by country since 1990. See which countries are gaining tree cover and which are still losing it.
 ---
 
-# Land
+# Land & Forests
 
-Forest area as a percentage of total land area. FAO's definition of "forest"
-has limitations — it counts plantations and includes land that is temporarily
-unstocked — so this is a directional indicator, not a measure of ecosystem
-health.
+Forest area as a percentage of total land. The trend here is more mixed than emissions or energy — some countries have reversed deforestation while others continue to lose cover at pace.
+
+A word on the data: the FAO definition of "forest" has well-known limitations. It counts monoculture timber plantations, includes land temporarily cleared after fire or logging, and doesn't distinguish primary rainforest from managed tree farms. Treat this as a directional indicator of land use pressure, not a measure of ecosystem health or biodiversity.
+
+The default selection highlights the tension: Brazil and Indonesia are among the world's largest tropical forest holders and have historically shown steep declines; the Democratic Republic of Congo holds the second-largest rainforest and is watching it diminish; Canada shows the relative stability of boreal forests under different land-use pressures.
 
 <Dropdown
   name=countries
@@ -27,7 +28,9 @@ where iso3 is not null and iso3 != 'OWID_WRL'
 order by entity
 ```
 
-## Forest area (% of land)
+## Forest cover over time
+
+Countries in the tropics typically show declining lines as agricultural frontiers expand. Temperate and boreal regions show more stability — and some European countries have actually increased cover through afforestation programmes.
 
 ```sql forest_series
 select
@@ -44,10 +47,13 @@ order by year, entity
   x=year
   y=forest_share
   series=entity
-  yAxisTitle="% of land"
+  yAxisTitle="% of land area"
+  title="Forest cover over time"
 />
 
 ## Net change since 1990
+
+Percentage-point gain or loss since 1990, the baseline year for most international forest-related commitments (including the UN's Sustainable Development Goals). Bars below zero represent countries that have lost forest cover; bars above zero have gained it.
 
 ```sql forest_change
 with first_year as (
@@ -73,6 +79,10 @@ order by pct_point_change
   data={forest_change}
   x=entity
   y=pct_point_change
-  yAxisTitle="percentage-point change"
+  yAxisTitle="percentage-point change since 1990"
   title="Change in forest cover since 1990"
 />
+
+---
+
+Source: UN Food and Agriculture Organisation (FAO) via Our World in Data. Data coverage begins 1990 for most countries.

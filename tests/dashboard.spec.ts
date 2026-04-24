@@ -39,3 +39,29 @@ for (const p of PAGES) {
 // IntersectionObserver after queries resolve, which is timing-sensitive in
 // headless Chromium and produces flaky failures unrelated to the dashboard's
 // correctness.
+
+// Data presence: these tests confirm queries returned real rows, not just that
+// they ran without crashing. Dropdown option count is read from the DOM after
+// queries resolve — it doesn't depend on IntersectionObserver.
+
+test('index: country dropdown is populated with data', async ({ page }) => {
+  await page.goto('/');
+  await waitForQueriesToResolve(page);
+  const optionCount = await page.locator('select option').count();
+  expect(optionCount, 'country_list query should return many countries').toBeGreaterThan(10);
+});
+
+test('index: country dropdown selection is interactive', async ({ page }) => {
+  await page.goto('/');
+  await waitForQueriesToResolve(page);
+  const select = page.locator('select').first();
+  await select.selectOption('GBR');
+  await expect(select).toHaveValue('GBR');
+});
+
+test('emissions: multi-select dropdown is populated with data', async ({ page }) => {
+  await page.goto('/emissions');
+  await waitForQueriesToResolve(page);
+  const optionCount = await page.locator('select option').count();
+  expect(optionCount, 'country_list query should return many countries').toBeGreaterThan(10);
+});

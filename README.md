@@ -1,48 +1,44 @@
-# Evidence Template Project
+# enviro-dash
 
-## Using Codespaces
+An Evidence.dev environmental data dashboard. Four pages (Overview, Emissions, Energy, Land)
+powered by five Our World in Data indicators. Country filters are interactive; charts update
+instantly via DuckDB-Wasm with no backend.
 
-If you are using this template in Codespaces, click the `Start Evidence` button in the bottom status bar. This will install dependencies and open a preview of your project in your browser - you should get a popup prompting you to open in browser.
-
-Or you can use the following commands to get started:
-
-```bash
-npm install
-npm run sources
-npm run dev -- --host 0.0.0.0
-```
-
-See [the CLI docs](https://docs.evidence.dev/cli/) for more command information.
-
-**Note:** Codespaces is much faster on the Desktop app. After the Codespace has booted, select the hamburger menu → Open in VS Code Desktop.
-
-## Get Started from VS Code
-
-The easiest way to get started is using the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=Evidence.evidence-vscode):
-
-
-
-1. Install the extension from the VS Code Marketplace
-2. Open the Command Palette (Ctrl/Cmd + Shift + P) and enter `Evidence: New Evidence Project`
-3. Click `Start Evidence` in the bottom status bar
-
-## Get Started using the CLI
+## Dev
 
 ```bash
-npx degit evidence-dev/template my-project
-cd my-project 
-npm install 
-npm run sources
-npm run dev 
+npm run sources   # fetch OWID CSVs and cache as Parquet
+npm run dev       # dev server at http://localhost:3000
 ```
 
-Check out the docs for [alternative install methods](https://docs.evidence.dev/getting-started/install-evidence) including Docker, Github Codespaces, and alongside dbt.
+## Test
 
+```bash
+npm run test:sources   # validate SQL queries against live OWID data
+npm run test:e2e:ci    # sources + build + Playwright e2e (requires built app)
+```
 
+## Build
 
-## Learning More
+```bash
+npm run build          # static output → build/
+npx serve build -l 3030   # preview the production build locally
+```
 
-- [Docs](https://docs.evidence.dev/)
-- [Github](https://github.com/evidence-dev/evidence)
-- [Slack Community](https://slack.evidence.dev/)
-- [Evidence Home Page](https://www.evidence.dev)
+## Deploy
+
+The `build/` output is a plain static site. Deploy to any static host:
+
+- **Cloudflare Pages**: `wrangler pages deploy build`
+- **Netlify**: `netlify deploy --prod --dir build`
+- **GitHub Pages**: push `build/` to the `gh-pages` branch
+
+## Adding a new indicator
+
+See [`../spec/README.md`](../spec/README.md) — the spec directory is the source of truth
+for all SQL sources and dashboard pages.
+
+## Data freshness
+
+OWID data is cached as Parquet at build time under `.evidence/meta/query-cache/`.
+To refresh: delete that directory and re-run `npm run sources`.
