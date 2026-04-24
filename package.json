@@ -9,6 +9,7 @@
     "sources": "evidence sources",
     "sources:strict": "evidence sources --strict",
     "preview": "evidence preview",
+    "test:sources": "node --test scripts/test_sources.js",
     "test:e2e": "playwright test",
     "test:e2e:ci": "evidence sources && evidence build && playwright test"
   },
@@ -40,6 +41,7 @@
     "axios": "^1.7.4"
   },
   "devDependencies": {
+    "@duckdb/node-api": "^1.5.2-r.1",
     "@playwright/test": "^1.59.1",
     "serve": "^14.2.6"
   }
