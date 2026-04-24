@@ -1,0 +1,4 @@
+name: owid
+type: duckdb
+options:
+  filename: ":memory:"
