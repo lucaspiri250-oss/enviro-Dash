@@ -5,68 +5,69 @@ appearance:
 theme:
   colorPalettes:
     default:
+      # Environmental palette: forest greens, ocean blues, earth tones.
+      # Ordered to be distinguishable under deuteranopia (red/green colour blindness)
+      # by alternating between blue-family and green/amber families.
       light:
-        - "#236aa4"
-        - "#45a1bf"
-        - "#a5cdee"
-        - "#8dacbf"
-        - "#85c7c6"
-        - "#d2c6ac"
-        - "#f4b548"
-        - "#8f3d56"
-        - "#71b9f4"
-        - "#46a485"
+        - "#1a7a4a"   # deep forest green
+        - "#1565c0"   # ocean blue
+        - "#d97706"   # amber / earth
+        - "#0e7490"   # deep teal
+        - "#7c3aed"   # iris (distinguishable from green/blue)
+        - "#65a30d"   # grass green
+        - "#c2410c"   # terracotta
+        - "#0369a1"   # sky blue
+        - "#4d7c0f"   # olive
+        - "#92400e"   # earth brown
       dark:
-        - "#236aa4"
-        - "#45a1bf"
-        - "#a5cdee"
-        - "#8dacbf"
-        - "#85c7c6"
-        - "#d2c6ac"
-        - "#f4b548"
-        - "#8f3d56"
-        - "#71b9f4"
-        - "#46a485"
+        - "#34d399"   # mint green
+        - "#60a5fa"   # bright blue
+        - "#fbbf24"   # golden amber
+        - "#22d3ee"   # bright teal
+        - "#a78bfa"   # lavender
+        - "#a3e635"   # bright lime
+        - "#fb923c"   # orange
+        - "#38bdf8"   # sky blue
+        - "#86efac"   # light green
+        - "#fde68a"   # warm yellow
+
   colorScales:
     default:
       light:
-        - "#ADD8E6"
-        - "#00008B"
+        - "#d1fae5"   # lightest green
+        - "#065f46"   # darkest forest green
       dark:
-        - "#ADD8E6"
-        - "#00008B"
+        - "#064e3b"
+        - "#6ee7b7"
+
   colors:
     primary:
-      light: "#2563eb"
-      dark: "#3b82f6"
+      light: "#1a7a4a"   # forest green
+      dark:  "#34d399"   # mint green
     accent:
-      light: "#c2410c"
-      dark: "#fdba74"
+      light: "#d97706"   # amber
+      dark:  "#fbbf24"   # golden
     base:
-      light: "#ffffff"
-      dark: "#09090b"
+      light: "#f9fafb"   # off-white (easier on the eye than pure white)
+      dark:  "#09090b"
     info:
-      light: "#0284c7"
-      dark: "#38bdf8"
+      light: "#0369a1"
+      dark:  "#38bdf8"
     positive:
       light: "#16a34a"
-      dark: "#4ade80"
+      dark:  "#4ade80"
     warning:
-      light: "#f8c900"
-      dark: "#fbbf24"
+      light: "#d97706"
+      dark:  "#fbbf24"
     negative:
       light: "#dc2626"
-      dark: "#f87171"
+      dark:  "#f87171"
 
 plugins:
   components:
-    # This loads all of evidence's core charts and UI components
-    # You probably don't want to edit this dependency unless you know what you are doing
     "@evidence-dev/core-components": {}
 
   datasources:
-    # You can add additional datasources here by adding npm packages. 
-    # Make to also add them to `package.json`.
     "@evidence-dev/bigquery": { }
     "@evidence-dev/csv": { }
     "@evidence-dev/databricks": { }

@@ -19,6 +19,24 @@ The default selection (USA, China, India, Germany, Brazil) illustrates the tensi
   title="Countries"
 />
 
+<Slider
+  name=minYear
+  title="From year"
+  min=1750
+  max=2023
+  defaultValue=1950
+  step=1
+/>
+
+<Slider
+  name=maxYear
+  title="To year"
+  min=1750
+  max=2023
+  defaultValue=2023
+  step=1
+/>
+
 ```sql country_list
 select distinct iso3, entity
 from owid.co2_per_capita
@@ -26,9 +44,9 @@ where iso3 is not null and iso3 != 'OWID_WRL'
 order by entity
 ```
 
-## Per capita emissions — tonnes CO₂ per person
+## Per capita vs. absolute — side by side
 
-Most wealthy nations peaked in the 1970s–80s as energy efficiency improved and heavy industry declined. The steepest falls since 2000 are largely from coal-to-gas switching and the growth of renewables, not economic contraction.
+The two lenses on the same data. Slide the year range above to zoom into any era.
 
 ```sql per_capita_series
 select
@@ -37,22 +55,10 @@ select
   "CO₂ emissions per capita" as co2_per_capita
 from owid.co2_per_capita
 where iso3 in ${inputs.countries.value}
-  and year >= 1950
+  and year >= ${inputs.minYear}
+  and year <= ${inputs.maxYear}
 order by year, entity
 ```
-
-<LineChart
-  data={per_capita_series}
-  x=year
-  y=co2_per_capita
-  series=entity
-  yAxisTitle="tonnes CO₂ per person"
-  title="CO₂ per capita since 1950"
-/>
-
-## Absolute emissions — total tonnes CO₂ per year
-
-The scale here is unforgiving. Global CO₂ from fossil fuels has roughly quadrupled since 1950. China's rise from near-zero to the world's largest emitter happened almost entirely between 1990 and 2010 — one of the fastest industrialisations in history.
 
 ```sql absolute_series
 select
@@ -61,9 +67,21 @@ select
   "Annual CO₂ emissions" as co2_annual
 from owid.annual_co2
 where iso3 in ${inputs.countries.value}
-  and year >= 1950
+  and year >= ${inputs.minYear}
+  and year <= ${inputs.maxYear}
 order by year, entity
 ```
+
+<Grid cols=2>
+
+<LineChart
+  data={per_capita_series}
+  x=year
+  y=co2_per_capita
+  series=entity
+  yAxisTitle="tonnes CO₂ per person"
+  title="Per capita"
+/>
 
 <LineChart
   data={absolute_series}
@@ -71,12 +89,16 @@ order by year, entity
   y=co2_annual
   series=entity
   yAxisTitle="tonnes CO₂ per year"
-  title="Total CO₂ emissions since 1950"
+  title="Absolute total"
 />
+
+</Grid>
+
+Most wealthy nations peaked per-capita in the 1970s–80s as energy efficiency improved and heavy industry declined. The steepest absolute falls since 2000 are largely from coal-to-gas switching and renewables growth. China's rise from near-zero to the world's largest absolute emitter happened almost entirely between 1990 and 2010.
 
 ## Snapshot — most recent year
 
-Where each selected country stands today, ranked by per-capita emissions. Useful for cutting through the noise of historical trends and seeing the current state plainly.
+Where each selected country stands today, ranked by per-capita emissions.
 
 ```sql latest_per_capita
 with latest_year as (select max(year) as yr from owid.annual_co2)
@@ -93,6 +115,23 @@ order by co2_per_capita desc
   y=co2_per_capita
   yAxisTitle="tonnes CO₂ per person"
   title="Per-capita emissions, latest available year"
+/>
+
+## All countries ranked
+
+```sql all_countries_co2
+with latest_year as (select max(year) as yr from owid.co2_per_capita)
+select entity, "CO₂ emissions per capita" as co2_per_capita
+from owid.co2_per_capita
+where year = (select yr from latest_year)
+  and iso3 is not null and iso3 != 'OWID_WRL'
+order by co2_per_capita desc
+```
+
+<DataTable
+  data={all_countries_co2}
+  rows=15
+  search=true
 />
 
 ---

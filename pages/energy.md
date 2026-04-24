@@ -19,6 +19,24 @@ The default selection puts Norway alongside Germany, China, Brazil, and the US t
   title="Countries"
 />
 
+<Slider
+  name=minYear
+  title="From year"
+  min=1965
+  max=2023
+  defaultValue=1990
+  step=1
+/>
+
+<Slider
+  name=maxYear
+  title="To year"
+  min=1965
+  max=2023
+  defaultValue=2023
+  step=1
+/>
+
 ```sql country_list
 select distinct iso3, entity
 from owid.renewables_share
@@ -37,6 +55,8 @@ select
   "Renewables" as renewables_share
 from owid.renewables_share
 where iso3 in ${inputs.countries.value}
+  and year >= ${inputs.minYear}
+  and year <= ${inputs.maxYear}
 order by year, entity
 ```
 
@@ -71,6 +91,23 @@ order by renewables_share desc
   y=renewables_share
   yAxisTitle="% of electricity"
   title="Renewable share, latest available year"
+/>
+
+## All countries ranked
+
+```sql all_countries_renewables
+with latest_year as (select max(year) as yr from owid.renewables_share)
+select entity, "Renewables" as renewables_share
+from owid.renewables_share
+where year = (select yr from latest_year)
+  and iso3 is not null and iso3 != 'OWID_WRL'
+order by renewables_share desc
+```
+
+<DataTable
+  data={all_countries_renewables}
+  rows=15
+  search=true
 />
 
 ---

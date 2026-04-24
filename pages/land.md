@@ -21,6 +21,24 @@ The default selection highlights the tension: Brazil and Indonesia are among the
   title="Countries"
 />
 
+<Slider
+  name=minYear
+  title="From year"
+  min=1990
+  max=2023
+  defaultValue=1990
+  step=1
+/>
+
+<Slider
+  name=maxYear
+  title="To year"
+  min=1990
+  max=2023
+  defaultValue=2023
+  step=1
+/>
+
 ```sql country_list
 select distinct iso3, entity
 from owid.forest_area
@@ -39,6 +57,8 @@ select
   "Share of land covered by forest" as forest_share
 from owid.forest_area
 where iso3 in ${inputs.countries.value}
+  and year >= ${inputs.minYear}
+  and year <= ${inputs.maxYear}
 order by year, entity
 ```
 
@@ -81,6 +101,23 @@ order by pct_point_change
   y=pct_point_change
   yAxisTitle="percentage-point change since 1990"
   title="Change in forest cover since 1990"
+/>
+
+## All countries ranked — current forest cover
+
+```sql all_countries_forest
+with latest_year as (select max(year) as yr from owid.forest_area)
+select entity, "Share of land covered by forest" as forest_share
+from owid.forest_area
+where year = (select yr from latest_year)
+  and iso3 is not null and iso3 != 'OWID_WRL'
+order by forest_share desc
+```
+
+<DataTable
+  data={all_countries_forest}
+  rows=15
+  search=true
 />
 
 ---

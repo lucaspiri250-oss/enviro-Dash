@@ -5,6 +5,7 @@ const PAGES = [
   { path: '/emissions', name: 'emissions' },
   { path: '/energy', name: 'energy' },
   { path: '/land', name: 'land' },
+  { path: '/air', name: 'air' },
 ];
 
 async function waitForQueriesToResolve(page: Page) {
@@ -64,4 +65,11 @@ test('emissions: multi-select dropdown is populated with data', async ({ page })
   await waitForQueriesToResolve(page);
   const optionCount = await page.locator('select option').count();
   expect(optionCount, 'country_list query should return many countries').toBeGreaterThan(10);
+});
+
+test('air: country dropdown is populated with data', async ({ page }) => {
+  await page.goto('/air');
+  await waitForQueriesToResolve(page);
+  const optionCount = await page.locator('select option').count();
+  expect(optionCount, 'pm25 country_list query should return many countries').toBeGreaterThan(10);
 });
