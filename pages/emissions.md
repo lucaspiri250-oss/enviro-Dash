@@ -70,11 +70,8 @@ order by year, entity
 
 ## The most recent year at a glance
 
-```sql latest_year
-select max(year) as yr from owid.annual_co2
-```
-
 ```sql latest_per_capita
+with latest_year as (select max(year) as yr from owid.annual_co2)
 select entity, "CO₂ emissions per capita" as co2_per_capita
 from owid.co2_per_capita
 where year = (select yr from latest_year)

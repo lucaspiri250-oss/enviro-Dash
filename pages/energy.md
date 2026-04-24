@@ -48,11 +48,8 @@ order by year, entity
 
 ## Latest year
 
-```sql latest_year
-select max(year) as yr from owid.renewables_share
-```
-
 ```sql latest_renewables
+with latest_year as (select max(year) as yr from owid.renewables_share)
 select entity, "Renewables" as renewables_share
 from owid.renewables_share
 where year = (select yr from latest_year)
