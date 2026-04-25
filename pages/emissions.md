@@ -121,11 +121,11 @@ order by co2_per_capita desc
 
 ```sql all_countries_co2
 with latest_year as (select max(year) as yr from owid.co2_per_capita)
-select entity, "CO₂ emissions per capita" as co2_per_capita
+select entity, "CO₂ emissions per capita" as "CO₂ per capita"
 from owid.co2_per_capita
 where year = (select yr from latest_year)
   and iso3 is not null and iso3 != 'OWID_WRL'
-order by co2_per_capita desc
+order by "CO₂ per capita" desc
 ```
 
 <DataTable
