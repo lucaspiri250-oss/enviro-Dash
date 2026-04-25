@@ -46,12 +46,6 @@ Custom global CSS goes in `app.css` at this directory's root. Evidence's CLI cop
 over the framework template on every build. The file must include the full framework CSS
 (it is seeded from `node_modules/@evidence-dev/evidence/template/src/app.css`).
 
-## CSS customisation
-
-Custom global CSS goes in `app.css` at this directory's root. Evidence's CLI copies it
-over the framework template on every build. The file must include the full framework CSS
-(it is seeded from `node_modules/@evidence-dev/evidence/template/src/app.css`).
-
 ## Data freshness
 
 OWID data is cached as Parquet at build time under `.evidence/meta/query-cache/`.
