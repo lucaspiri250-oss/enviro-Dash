@@ -54,7 +54,7 @@ Values above 5 µg/m³ exceed the WHO annual guideline. The divergence between h
 select
   entity,
   year,
-  "PM2.5 air pollution, mean annual exposure (micrograms per cubic metre)" as pm25_exposure
+  "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)" as pm25_exposure
 from owid.pm25
 where iso3 in ${inputs.countries.value}
   and year >= ${inputs.minYear}
@@ -79,7 +79,7 @@ Countries ranked by current exposure. Run `/owid-check` if this table shows an e
 with latest_year as (select max(year) as yr from owid.pm25)
 select
   entity,
-  "PM2.5 air pollution, mean annual exposure (micrograms per cubic metre)" as pm25_exposure
+  "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)" as pm25_exposure
 from owid.pm25
 where year = (select yr from latest_year)
   and iso3 is not null and iso3 != 'OWID_WRL'

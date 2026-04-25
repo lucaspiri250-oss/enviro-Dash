@@ -73,11 +73,8 @@ order by year, entity
 
 Current standing. A country at 20% today would need to roughly quintuple its clean generation to fully decarbonise — the bar shows how far each one still has to travel.
 
-```sql latest_year
-select max(year) as yr from owid.renewables_share
-```
-
 ```sql latest_renewables
+with latest_year as (select max(year) as yr from owid.renewables_share)
 select entity, "Renewables" as renewables_share
 from owid.renewables_share
 where year = (select yr from latest_year)

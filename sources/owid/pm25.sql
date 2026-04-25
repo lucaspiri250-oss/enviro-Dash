@@ -11,7 +11,7 @@ SELECT
   "Year"    AS year,
   * EXCLUDE ("Entity", "Code", "Year")
 FROM read_csv_auto(
-  'https://ourworldindata.org/grapher/PM2-5-air-pollution.csv'
+  'https://ourworldindata.org/grapher/average-exposure-pm25-pollution.csv'
 )
 WHERE "Code" IS NOT NULL
   AND "Code" != ''
