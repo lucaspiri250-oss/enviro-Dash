@@ -1,7 +1,5 @@
 # enviro-dash
 
-**Live:** https://delicate-elf-6fc53e.netlify.app
-
 An Evidence.dev environmental data dashboard. Five pages (Overview, Emissions, Energy, Land, Air Quality)
 powered by six Our World in Data indicators. Country filters and year-range sliders are interactive;
 charts update instantly via DuckDB-Wasm with no backend.
@@ -29,19 +27,24 @@ npx serve build -l 3030   # preview the production build locally
 
 ## Deploy
 
-Deployed to **Netlify** — pushes to `main` trigger automatic rebuilds.
-A weekly cron job (`.github/workflows/weekly-refresh.yml`) triggers a fresh
-build every Monday to pick up new OWID data.
+Deployed to **Netlify** — live at https://delicate-elf-6fc53e.netlify.app. Pushes to `main` trigger automatic rebuilds via `netlify.toml`.
 
 To deploy manually to other hosts:
 
 - **Netlify**: `netlify deploy --prod --dir build`
 - **GitHub Pages**: push `build/` to the `gh-pages` branch
 
+> Note: Cloudflare Pages is not supported — Evidence's DuckDB-Wasm bundle exceeds the 25 MiB file size limit.
+
 ## Adding a new indicator
 
-Run `/add-indicator` in Claude Code, or follow the pattern in `spec/README.md` —
-the spec directory is the source of truth for all SQL sources and dashboard pages.
+Run `/add-indicator` in Claude Code, or follow the workflow in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## CSS customisation
+
+Custom global CSS goes in `app.css` at this directory's root. Evidence's CLI copies it
+over the framework template on every build. The file must include the full framework CSS
+(it is seeded from `node_modules/@evidence-dev/evidence/template/src/app.css`).
 
 ## Data freshness
 
