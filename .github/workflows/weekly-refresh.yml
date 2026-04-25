@@ -10,10 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: Trigger Cloudflare Pages rebuild
+      - name: Trigger Netlify rebuild
         run: |
-          curl -f -X POST "${{ secrets.CF_BUILD_HOOK }}" \
-            -H "Content-Type: application/json" \
+          curl -f -X POST "${{ secrets.NETLIFY_BUILD_HOOK }}" \
             --silent --show-error
-        env:
-          CF_BUILD_HOOK: ${{ secrets.CF_BUILD_HOOK }}
