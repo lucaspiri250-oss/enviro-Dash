@@ -11,3 +11,4 @@ static/data
 test-results
 playwright-report
 .playwright
+.gstack/
