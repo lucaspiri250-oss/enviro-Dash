@@ -1,8 +1,10 @@
 # enviro-dash
 
-An Evidence.dev environmental data dashboard. Four pages (Overview, Emissions, Energy, Land)
-powered by five Our World in Data indicators. Country filters are interactive; charts update
-instantly via DuckDB-Wasm with no backend.
+**Live:** https://delicate-elf-6fc53e.netlify.app
+
+An Evidence.dev environmental data dashboard. Five pages (Overview, Emissions, Energy, Land, Air Quality)
+powered by six Our World in Data indicators. Country filters and year-range sliders are interactive;
+charts update instantly via DuckDB-Wasm with no backend.
 
 ## Dev
 
@@ -27,16 +29,19 @@ npx serve build -l 3030   # preview the production build locally
 
 ## Deploy
 
-The `build/` output is a plain static site. Deploy to any static host:
+Deployed to **Netlify** — pushes to `main` trigger automatic rebuilds.
+A weekly cron job (`.github/workflows/weekly-refresh.yml`) triggers a fresh
+build every Monday to pick up new OWID data.
 
-- **Cloudflare Pages**: `wrangler pages deploy build`
+To deploy manually to other hosts:
+
 - **Netlify**: `netlify deploy --prod --dir build`
 - **GitHub Pages**: push `build/` to the `gh-pages` branch
 
 ## Adding a new indicator
 
-See [`../spec/README.md`](../spec/README.md) — the spec directory is the source of truth
-for all SQL sources and dashboard pages.
+Run `/add-indicator` in Claude Code, or follow the pattern in `spec/README.md` —
+the spec directory is the source of truth for all SQL sources and dashboard pages.
 
 ## Data freshness
 
