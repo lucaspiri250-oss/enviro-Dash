@@ -3,8 +3,6 @@ title: Land & Forests
 description: Forest cover as a share of land area, by country since 1990. See which countries are gaining tree cover and which are still losing it.
 ---
 
-# Land & Forests
-
 Forest area as a percentage of total land. The trend here is more mixed than emissions or energy — some countries have reversed deforestation while others continue to lose cover at pace.
 
 A word on the data: the FAO definition of "forest" has well-known limitations. It counts monoculture timber plantations, includes land temporarily cleared after fire or logging, and doesn't distinguish primary rainforest from managed tree farms. Treat this as a directional indicator of land use pressure, not a measure of ecosystem health or biodiversity.

@@ -3,8 +3,6 @@ title: Emissions
 description: CO₂ emissions per capita and in absolute terms, by country since 1950. Compare the world's biggest emitters and track who's cutting fastest.
 ---
 
-# Emissions
-
 CO₂ from fossil fuels and industry, shown two ways. **Per capita** reveals the carbon intensity of a country's economy and lifestyle — it's the fairness lens. **Absolute** shows a country's total contribution to the atmosphere — it's the physical impact lens. A country can look responsible on one and not the other; both matter.
 
 The default selection (USA, China, India, Germany, Brazil) illustrates the tension: the US and Germany lead on per-capita cuts, while China and India show rapidly rising absolute totals despite low per-person numbers.

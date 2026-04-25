@@ -3,8 +3,6 @@ title: Energy Transition
 description: How much of each country's electricity comes from renewable sources? Track the clean energy transition by country since 1990.
 ---
 
-# Energy Transition
-
 The share of electricity generated from renewable sources — hydro, wind, solar, biomass, and geothermal — is the clearest single metric for how fast a country is decarbonising its power sector. It doesn't capture heating, transport, or industrial heat, but electricity is where most of the transition is happening fastest.
 
 The default selection puts Norway alongside Germany, China, Brazil, and the US to show the range: Norway has been near-100% (mostly hydro) for decades, while Germany's visible "Energiewende" rise is recent and policy-driven. Brazil's high baseline comes from its vast hydroelectric capacity; China's steep rise from 2010 onward reflects the world's largest solar and wind build-out.

@@ -3,8 +3,6 @@ title: Air Quality
 description: Mean annual PM2.5 exposure by country over time. See how air quality compares across the world and which countries are improving fastest.
 ---
 
-# Air Quality
-
 PM2.5 — fine particulate matter smaller than 2.5 micrometres — is the air pollutant most consistently linked to serious health effects. It penetrates deep into the lungs and enters the bloodstream, contributing to heart disease, stroke, lung cancer, and respiratory illness. The WHO estimates it causes around 7 million premature deaths per year, making it the world's largest environmental health risk.
 
 The WHO annual guideline is **5 µg/m³** (tightened from 10 µg/m³ in 2021). The vast majority of the world's population lives in areas that exceed this threshold — most of South Asia and Sub-Saharan Africa by a factor of 10 or more.

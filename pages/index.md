@@ -3,8 +3,6 @@ title: Environmental Indicators
 description: Track any country's CO₂ emissions, clean energy progress, forest cover, and global temperature in one view. Data from Our World in Data.
 ---
 
-# Environmental Indicators
-
 Four numbers that sketch a country's environmental footprint: carbon emitted per person, share of electricity from clean sources, forest cover, and where global temperatures are heading. Select a country to trace its trajectory across all four — then use the sidebar to compare multiple countries on any single theme.
 
 Data is pulled at build time from [Our World in Data](https://ourworldindata.org)'s open datasets. Underlying sources include the Global Carbon Project, Ember, FAO, and NASA GISTEMP.
@@ -105,5 +103,4 @@ order by year
 
 ---
 
-Data: [Our World in Data](https://ourworldindata.org) (CC BY). If any chart shows no data,
-an OWID column name may have changed — see `spec/README.md` for how to fix it.
+Data: [Our World in Data](https://ourworldindata.org) (CC BY).
