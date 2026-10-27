@@ -41,35 +41,58 @@ for (const p of PAGES) {
 // headless Chromium and produces flaky failures unrelated to the dashboard's
 // correctness.
 
-// Data presence: these tests confirm queries returned real rows, not just that
-// they ran without crashing. Dropdown option count is read from the DOM after
-// queries resolve — it doesn't depend on IntersectionObserver.
+// Data presence: these tests confirm the country queries returned real rows.
+// Evidence renders <Dropdown> as a combobox (button + popover) with a
+// virtualised option list, not a native <select>, so we open it with the
+// keyboard, search for a known country and check it appears.
 
-test('index: country dropdown is populated with data', async ({ page }) => {
-  await page.goto('/');
-  await waitForQueriesToResolve(page);
-  const optionCount = await page.locator('select option').count();
-  expect(optionCount, 'country_list query should return many countries').toBeGreaterThan(10);
-});
+async function openDropdown(page: Page) {
+  const trigger = page.getByRole('combobox').first();
+  await trigger.focus();
+  await page.keyboard.press('Space');
+  await expect(page.getByRole('option').first()).toBeVisible();
+  return trigger;
+}
+
+async function searchOptions(page: Page, text: string) {
+  await page.locator('[data-cmdk-input]').fill(text);
+  return page.getByRole('option', { name: text });
+}
+
+// The option list is virtualised (only a handful of rows are in the DOM), and
+// multi-select dropdowns pin their selected countries at the top. So to prove
+// the full country list loaded, scroll the list to the end and check the
+// alphabetically last country is there.
+async function scrollOptionsToEnd(page: Page) {
+  await page.evaluate(() => {
+    const viewport = document.querySelector('[role="option"]')?.closest('.viewport');
+    if (viewport) viewport.scrollTop = viewport.scrollHeight;
+  });
+}
+
+for (const p of [
+  { path: '/', name: 'index' },
+  { path: '/emissions', name: 'emissions' },
+  { path: '/air', name: 'air' },
+]) {
+  test(`${p.name}: country dropdown is populated with data`, async ({ page }) => {
+    await page.goto(p.path);
+    await waitForQueriesToResolve(page);
+    await openDropdown(page);
+    await scrollOptionsToEnd(page);
+    await expect(
+      page.getByRole('option', { name: 'Zimbabwe' }),
+      `country_list on ${p.path} should run from A to Z`,
+    ).toBeVisible();
+  });
+}
 
 test('index: country dropdown selection is interactive', async ({ page }) => {
   await page.goto('/');
   await waitForQueriesToResolve(page);
-  const select = page.locator('select').first();
-  await select.selectOption('GBR');
-  await expect(select).toHaveValue('GBR');
-});
-
-test('emissions: multi-select dropdown is populated with data', async ({ page }) => {
-  await page.goto('/emissions');
-  await waitForQueriesToResolve(page);
-  const optionCount = await page.locator('select option').count();
-  expect(optionCount, 'country_list query should return many countries').toBeGreaterThan(10);
-});
-
-test('air: country dropdown is populated with data', async ({ page }) => {
-  await page.goto('/air');
-  await waitForQueriesToResolve(page);
-  const optionCount = await page.locator('select option').count();
-  expect(optionCount, 'pm25 country_list query should return many countries').toBeGreaterThan(10);
+  const trigger = await openDropdown(page);
+  const option = await searchOptions(page, 'United Kingdom');
+  await option.click();
+  await page.keyboard.press('Escape');
+  await expect(trigger).toContainText('United Kingdom');
 });
