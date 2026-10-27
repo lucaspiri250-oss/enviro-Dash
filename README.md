@@ -6,9 +6,9 @@ An Evidence.dev environmental data dashboard. Five pages (Overview, Emissions, E
 powered by six Our World in Data indicators. Country filters and year-range sliders are interactive;
 charts update instantly via DuckDB-Wasm with no backend.
 
-Built in a day (25 April 2026) with Claude Code. Source queries are smoke-tested against live OWID data,
-a Playwright suite checks every page in CI, and a scheduled GitHub Action rebuilds the site every Monday
-so the data stays current without anyone touching it.
+Built in a day (25 April 2026) with Claude Code. A scheduled GitHub Action rebuilds the site every Monday
+so the data stays current without anyone touching it. The repo includes source-query smoke tests and a
+Playwright suite (see Test below).
 
 ## Data
 
