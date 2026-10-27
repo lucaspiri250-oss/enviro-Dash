@@ -7,8 +7,8 @@ powered by six Our World in Data indicators. Country filters and year-range slid
 charts update instantly via DuckDB-Wasm with no backend.
 
 Built in a day (25 April 2026) with Claude Code. A scheduled GitHub Action rebuilds the site every Monday
-so the data stays current without anyone touching it. The repo includes source-query smoke tests and a
-Playwright suite (see Test below).
+so the data stays current without anyone touching it. Both the source-query smoke tests and the
+Playwright end-to-end suite run in CI on every push (see Test below).
 
 ## Data
 
