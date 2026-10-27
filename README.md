@@ -1,8 +1,20 @@
 # enviro-dash
 
+**Live:** https://delicate-elf-6fc53e.netlify.app
+
 An Evidence.dev environmental data dashboard. Five pages (Overview, Emissions, Energy, Land, Air Quality)
 powered by six Our World in Data indicators. Country filters and year-range sliders are interactive;
 charts update instantly via DuckDB-Wasm with no backend.
+
+Built in a day (25 April 2026) with Claude Code. Source queries are smoke-tested against live OWID data,
+a Playwright suite checks every page in CI, and a scheduled GitHub Action rebuilds the site every Monday
+so the data stays current without anyone touching it.
+
+## Data
+
+All data comes from [Our World in Data](https://ourworldindata.org), licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Credit goes to OWID and its original sources;
+this repo only queries and visualises it.
 
 ## Dev
 
